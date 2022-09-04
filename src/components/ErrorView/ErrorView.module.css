@@ -1,0 +1,13 @@
+.wrapper {
+  text-align: center;
+}
+
+.text {
+  /* margin-top: 72px; */
+  color: #3f51b5;
+  font-size: 4vw;
+}
+
+.image {
+  margin: 0 auto;
+}
