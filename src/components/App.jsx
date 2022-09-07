@@ -29,14 +29,21 @@ const App = () => {
       return;
     } else {
       searchImages();
+      console.log('pageU', page);
     }
   }, [page]);
+  useEffect(() => {
+    if (query === '') return;
+    searchImages();
+    console.log('queryU', query);
+  }, [query]);
   /**/
   const searchImages = async () => {
     setStatus('pending');
     try {
       const request = await apiPixabay(query, page);
       if (page > 1) scrollPage();
+      console.log('pageQ', page);
       setImages(prev => [...prev, ...request]);
       setStatus('resolved');
       if (request.length === 0 || request === '') {
@@ -85,7 +92,10 @@ const App = () => {
       findImageId('2649311');
       return;
     }
-    searchImages();
+    const q = e.currentTarget.value;
+    console.log('q', q);
+    setQuery(q);
+    // searchImages();
   };
   /**/
   const onLoadMore = () => {
