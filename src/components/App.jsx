@@ -29,17 +29,16 @@ const App = () => {
       return;
     } else {
       searchImages();
-      console.log('pageU', page);
     }
   }, [page]);
+
   useEffect(() => {
     if (query === '') return;
     searchImages();
-    console.log('queryU', query);
   }, [query]);
+
   /**/
   const searchImages = async () => {
-    setStatus('pending');
     try {
       const request = await apiPixabay(query, page);
       if (page > 1) scrollPage();
@@ -72,30 +71,21 @@ const App = () => {
     } finally {
     }
   };
+
   /**/
-  const handleChange = e => {
-    setQuery(e.target.value);
-    if (e.target.value === '') {
-      setStatus('idle');
-      findImageId('2649311');
-    } else {
-      findImageId('2840235');
-    }
-  };
-  /**/
-  const handleSubmit = e => {
-    e.preventDefault();
-    setError(null);
+  const SearchForm = query => {
+    // setStatus('idle');
+    setStatus('pending');
     setImages([]);
     setPage(1);
+    setError(null);
+    setShowModal(false);
+    setLargeImageURL('');
     if (query === '') {
       findImageId('2649311');
       return;
     }
-    const q = e.currentTarget.value;
-    console.log('q', q);
-    setQuery(q);
-    // searchImages();
+    setQuery(query);
   };
   /**/
   const onLoadMore = () => {
@@ -127,8 +117,10 @@ const App = () => {
     return (
       <>
         <Searchbar
-          onHandleSubmit={handleSubmit}
-          onSearchQueryChange={handleChange}
+          onSearch={SearchForm}
+          findImageId={findImageId}
+          // handleSubmit={handleSubmit}
+          // onSearchQueryChange={handleChange}
           value={query}
         />
         <PreLoad src={startImageURL} />
@@ -140,8 +132,10 @@ const App = () => {
     return (
       <>
         <Searchbar
-          onHandleSubmit={handleSubmit}
-          onSearchQueryChange={handleChange}
+          onSearch={SearchForm}
+          findImageId={findImageId}
+          // onHandleSubmit={handleSubmit}
+          // onSearchQueryChange={handleChange}
           value={query}
         />
         <ImageGallery
@@ -158,8 +152,10 @@ const App = () => {
     return (
       <>
         <Searchbar
-          onHandleSubmit={handleSubmit}
-          onSearchQueryChange={handleChange}
+          onSearch={SearchForm}
+          findImageId={findImageId}
+          // handleSubmit={handleSubmit}
+          // onSearchQueryChange={handleChange}
           value={query}
         />
         <ErrorView texterror={error} src={startImageURL} />
@@ -171,8 +167,10 @@ const App = () => {
     return (
       <>
         <Searchbar
-          onHandleSubmit={handleSubmit}
-          onSearchQueryChange={handleChange}
+          onSearch={SearchForm}
+          findImageId={findImageId}
+          // handleSubmit={handleSubmit}
+          // onSearchQueryChange={handleChange}
           value={query}
         />
         <ImageGallery images={images} onOpenModal={onOpenModal} />
@@ -186,3 +184,28 @@ const App = () => {
   }
 };
 export default App;
+/**/
+// const handleSubmit = e => {
+//   e.preventDefault();
+//   setError(null);
+//   setImages([]);
+//   setPage(1);
+//   if (query === '') {
+//     findImageId('2649311');
+//     return;
+//   }
+//   const q = e.currentTarget.value;
+//   console.log('q', q);
+//   setQuery(q);
+//   // searchImages();
+// };
+/**/
+// const handleChange = e => {
+//   setQuery(e.target.value);
+//   if (e.target.value === '') {
+//     setStatus('idle');
+//     findImageId('2649311');
+//   } else {
+//     findImageId('2840235');
+//   }
+// };
