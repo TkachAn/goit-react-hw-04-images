@@ -2,48 +2,40 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import css from './Modal.module.css';
 
-const Modal=(onToggleModal)=> {
-  // static propTypes = {
-  //   largeImageURL: PropTypes.string.isRequired,
-  //   onToggleModal: PropTypes.func.isRequired,
-  // };
-
+const Modal = ({ children, onToggleModal }) => {
+  //, largeImageURL
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   });
-
+  // console.log('largeImageURLM2', largeImageURL);
   const handleKeyDown = e => {
     if (e.code === 'Escape') {
-      props.onToggleModal();
+      onToggleModal();
     }
   };
 
   const handleBackdropClick = e => {
     if (e.currentTarget === e.target) {
-      props.onToggleModal();
+      onToggleModal();
     }
   };
 
-  render() {
-    const { largeImageURL } = this.props;
-
-    return (
-      <div className={css.backdrop} onClick={this.handleBackdropClick}>
-        <div className={css.modal}>
-          <img
-            className={css.image}
-            src={largeImageURL}
-            alt="largeImage"
-            onClick={this.handleBackdropClick}
-          />
-        </div>
+  return (
+    <div className={css.backdrop} onClick={handleBackdropClick}>
+      <div className={css.modal}>
+        {children}
+        {/* <img
+          className={css.image}
+          src={largeImageURL}
+          alt="largeImage"
+          onClick={handleBackdropClick}
+        /> */}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Modal;
