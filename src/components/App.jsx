@@ -14,21 +14,17 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [images, setImages] = useState([]);
   const [largeImageURL, setLargeImageURL] = useState('');
-  const [startImageURL, setStartImageURL] = useState('');
+  const [startImageURL, setStartImageURL] = useState('2649311');
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [emptyInput, setEmptyInput] = useState(false);
   const [status, setStatus] = useState('idle');
   console.log('status', status);
-  console.log('startImageURL', startImageURL);
+  // console.log('startImageURL', startImageURL);
   // console.log('showModal', showModal);
   // console.log('error', error);
   // console.log('largeImageURL', largeImageURL);
-  /**/
-  useEffect(() => {
-    findImageId('2649311');
-  }, []);
-  /**/
+
   useEffect(() => {
     if (page === 1) {
       return;
@@ -46,9 +42,19 @@ const App = () => {
     }
   }, [query]);
 
-  // useEffect(() => {
-  //   console.log(startImageURL);
-  // }, [startImageURL]);
+  useEffect(() => {
+    if (!emptyInput) {
+      setStatus('idle');
+      setImages([]);
+      setPage(1);
+      setError(null);
+      setShowModal(false);
+      setLargeImageURL('');
+      // setStartImageURL('2649311');
+      // findImageId(startImageURL);
+    }
+    findImageId(startImageURL);
+  }, [emptyInput]);
 
   const inputChange = (bool, id) => {
     setEmptyInput(bool);
@@ -72,7 +78,7 @@ const App = () => {
       setStatus('rejected');
       setError('Something went wrong. Try again.');
     } finally {
-      console.log('pageQU', page);
+      // console.log('pageQU', page);
     }
   };
   /**/
@@ -87,14 +93,13 @@ const App = () => {
     } catch (error) {
       setError('Something went wrong.');
     } finally {
-      console.log('pageID', page);
+      // console.log('pageID', page);
     }
   };
 
   /**/
   const SearchForm = query => {
     // setStatus('idle');
-    setStatus('pending');
     setImages([]);
     setPage(1);
     setError(null);
@@ -138,7 +143,7 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
-          // value={query}
+          inputChange={inputChange}
         />
         <PreLoad src={startImageURL} />
       </>
@@ -151,7 +156,7 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
-          // value={query}
+          inputChange={inputChange}
         />
         {page > 1 && (
           <ImageGallery
@@ -171,7 +176,7 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
-          // value={query}
+          inputChange={inputChange}
         />
         <ErrorView texterror={error} src={startImageURL} />
       </>
@@ -184,6 +189,7 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
+          inputChange={inputChange}
           // value={query}
         />
         <ImageGallery images={images} onOpenModal={onOpenModal} />
