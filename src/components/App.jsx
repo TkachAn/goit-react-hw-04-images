@@ -17,11 +17,13 @@ const App = () => {
   const [startImageURL, setStartImageURL] = useState('');
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [emptyInput, setEmptyInput] = useState(false);
   const [status, setStatus] = useState('idle');
   console.log('status', status);
-  console.log('showModal', showModal);
-  console.log('error', error);
-  console.log('largeImageURL', largeImageURL);
+  console.log('startImageURL', startImageURL);
+  // console.log('showModal', showModal);
+  // console.log('error', error);
+  // console.log('largeImageURL', largeImageURL);
   /**/
   useEffect(() => {
     findImageId('2649311');
@@ -36,10 +38,22 @@ const App = () => {
   }, [page]);
 
   useEffect(() => {
-    if (query === '') return;
-    searchImages();
+    if (query === '') {
+      findImageId('2649311');
+      return;
+    } else {
+      searchImages();
+    }
   }, [query]);
 
+  // useEffect(() => {
+  //   console.log(startImageURL);
+  // }, [startImageURL]);
+
+  const inputChange = (bool, id) => {
+    setEmptyInput(bool);
+    setStartImageURL(id);
+  };
   /**/
   const searchImages = async () => {
     try {
@@ -58,6 +72,7 @@ const App = () => {
       setStatus('rejected');
       setError('Something went wrong. Try again.');
     } finally {
+      console.log('pageQU', page);
     }
   };
   /**/
@@ -72,6 +87,7 @@ const App = () => {
     } catch (error) {
       setError('Something went wrong.');
     } finally {
+      console.log('pageID', page);
     }
   };
 
@@ -97,9 +113,7 @@ const App = () => {
   };
   /**/
   const onOpenModal = e => {
-    console.log('largeImageURLAQM1', largeImageURL);
     setLargeImageURL(e.target.dataset.source);
-    console.log('largeImageURLAQM2', largeImageURL);
     setShowModal(true);
     toggleModal();
   };
@@ -124,7 +138,7 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
-          value={query}
+          // value={query}
         />
         <PreLoad src={startImageURL} />
       </>
@@ -137,7 +151,7 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
-          value={query}
+          // value={query}
         />
         {page > 1 && (
           <ImageGallery
@@ -157,7 +171,7 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
-          value={query}
+          // value={query}
         />
         <ErrorView texterror={error} src={startImageURL} />
       </>
@@ -170,18 +184,14 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
-          value={query}
+          // value={query}
         />
         <ImageGallery images={images} onOpenModal={onOpenModal} />
         {images.length >= 12 && <Button onLoadMore={onLoadMore} />}
 
         {showModal && (
           <Modal onToggleModal={toggleModal}>
-            <img
-              src={largeImageURL}
-              alt="largeImageURL"
-              className="Modal-image"
-            />
+            <img src={largeImageURL} alt="largeImageURL" />
           </Modal>
         )}
       </>
