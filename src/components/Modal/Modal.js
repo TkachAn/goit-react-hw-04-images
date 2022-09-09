@@ -25,17 +25,15 @@ const Modal = ({ children, onToggleModal }) => {
 
   return (
     <div className={css.backdrop} onClick={handleBackdropClick}>
-      <div className={css.modal}>
-        {children}
-        {/* <img
-          className={css.image}
-          src={largeImageURL}
-          alt="largeImage"
-          onClick={handleBackdropClick}
-        /> */}
-      </div>
+      <div className={css.modal}>{children}</div>
     </div>
   );
 };
 
 export default Modal;
+// {/* <img
+//   className={css.image}
+//   src={largeImageURL}
+//   alt="largeImage"
+//   onClick={handleBackdropClick}
+// /> */}
