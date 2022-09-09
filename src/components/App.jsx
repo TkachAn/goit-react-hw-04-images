@@ -18,7 +18,10 @@ const App = () => {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [status, setStatus] = useState('idle');
-  // console.log('status', status);
+  console.log('status', status);
+  console.log('showModal', showModal);
+  console.log('error', error);
+  console.log('largeImageURL', largeImageURL);
   /**/
   useEffect(() => {
     findImageId('2649311');
@@ -94,8 +97,10 @@ const App = () => {
   };
   /**/
   const onOpenModal = e => {
-    setStatus('pending');
+    console.log('largeImageURLAQM1', largeImageURL);
     setLargeImageURL(e.target.dataset.source);
+    console.log('largeImageURLAQM2', largeImageURL);
+    setShowModal(true);
     toggleModal();
   };
   /**/
@@ -119,8 +124,6 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
-          // handleSubmit={handleSubmit}
-          // onSearchQueryChange={handleChange}
           value={query}
         />
         <PreLoad src={startImageURL} />
@@ -134,15 +137,15 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
-          // onHandleSubmit={handleSubmit}
-          // onSearchQueryChange={handleChange}
           value={query}
         />
-        <ImageGallery
-          images={images}
-          onOpenModal={onOpenModal}
-          searchImages={searchImages}
-        />
+        {page > 1 && (
+          <ImageGallery
+            images={images}
+            onOpenModal={onOpenModal}
+            searchImages={searchImages}
+          />
+        )}
         <Loader />
       </>
     );
@@ -154,8 +157,6 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
-          // handleSubmit={handleSubmit}
-          // onSearchQueryChange={handleChange}
           value={query}
         />
         <ErrorView texterror={error} src={startImageURL} />
@@ -169,15 +170,19 @@ const App = () => {
         <Searchbar
           onSearch={SearchForm}
           findImageId={findImageId}
-          // handleSubmit={handleSubmit}
-          // onSearchQueryChange={handleChange}
           value={query}
         />
         <ImageGallery images={images} onOpenModal={onOpenModal} />
         {images.length >= 12 && <Button onLoadMore={onLoadMore} />}
 
         {showModal && (
-          <Modal largeImageURL={largeImageURL} onToggleModal={toggleModal} />
+          <Modal onToggleModal={toggleModal}>
+            <img
+              src={largeImageURL}
+              alt="largeImageURL"
+              className="Modal-image"
+            />
+          </Modal>
         )}
       </>
     );
@@ -209,3 +214,4 @@ export default App;
 //     findImageId('2840235');
 //   }
 // };
+//largeImageURL={largeImageURL}
