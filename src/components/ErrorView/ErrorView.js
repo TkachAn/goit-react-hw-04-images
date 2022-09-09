@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 
 import css from './ErrorView.module.css';
 
-function ErrorView({ texterror, src }) {
+function ErrorView({ textError, src }) {
   return (
     <div role="alert" className={css.wrapper}>
-      <h2 text={texterror} className={css.text}>
-        {texterror}
+      <h2 text={textError} className={css.text}>
+        {textError}
       </h2>
       <img className={css.image} src={src} alt="sadcat" />
     </div>
@@ -14,7 +14,7 @@ function ErrorView({ texterror, src }) {
 }
 
 ErrorView.propTypes = {
-  texterror: PropTypes.string.isRequired,
+  textError: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
 };
 
