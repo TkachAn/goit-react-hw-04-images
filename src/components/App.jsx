@@ -19,11 +19,6 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [emptyInput, setEmptyInput] = useState(false);
   const [status, setStatus] = useState('idle');
-  console.log('status', status);
-  // console.log('startImageURL', startImageURL);
-  // console.log('showModal', showModal);
-  // console.log('error', error);
-  // console.log('largeImageURL', largeImageURL);
 
   useEffect(() => {
     if (page === 1) {
@@ -50,8 +45,6 @@ const App = () => {
       setError(null);
       setShowModal(false);
       setLargeImageURL('');
-      // setStartImageURL('2649311');
-      // findImageId(startImageURL);
     }
     findImageId(startImageURL);
   }, [emptyInput]);
@@ -78,7 +71,6 @@ const App = () => {
       setStatus('rejected');
       setError('Something went wrong. Try again.');
     } finally {
-      // console.log('pageQU', page);
     }
   };
   /**/
@@ -93,13 +85,10 @@ const App = () => {
     } catch (error) {
       setError('Something went wrong.');
     } finally {
-      // console.log('pageID', page);
     }
   };
-
   /**/
   const SearchForm = query => {
-    // setStatus('idle');
     setImages([]);
     setPage(1);
     setError(null);
@@ -169,7 +158,7 @@ const App = () => {
       </>
     );
   }
-  /** */
+  /**/
   if (status === 'rejected') {
     return (
       <>
@@ -178,20 +167,15 @@ const App = () => {
           findImageId={findImageId}
           inputChange={inputChange}
         />
-        <ErrorView texterror={error} src={startImageURL} />
+        <ErrorView textError={error} src={startImageURL} />
       </>
     );
   }
-  /** */
+  /**/
   if (status === 'resolved') {
     return (
       <>
-        <Searchbar
-          onSearch={SearchForm}
-          findImageId={findImageId}
-          inputChange={inputChange}
-          // value={query}
-        />
+        <Searchbar onSearch={SearchForm} inputChange={inputChange} />
         <ImageGallery images={images} onOpenModal={onOpenModal} />
         {images.length >= 12 && <Button onLoadMore={onLoadMore} />}
 
@@ -206,28 +190,3 @@ const App = () => {
 };
 export default App;
 /**/
-// const handleSubmit = e => {
-//   e.preventDefault();
-//   setError(null);
-//   setImages([]);
-//   setPage(1);
-//   if (query === '') {
-//     findImageId('2649311');
-//     return;
-//   }
-//   const q = e.currentTarget.value;
-//   console.log('q', q);
-//   setQuery(q);
-//   // searchImages();
-// };
-/**/
-// const handleChange = e => {
-//   setQuery(e.target.value);
-//   if (e.target.value === '') {
-//     setStatus('idle');
-//     findImageId('2649311');
-//   } else {
-//     findImageId('2840235');
-//   }
-// };
-//largeImageURL={largeImageURL}
