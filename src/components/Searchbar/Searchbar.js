@@ -2,16 +2,18 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import css from './Searchbar.module.css';
 
-function Searchbar({ onSearch, findImageId }) {
+function Searchbar({ onSearch, findImageId, inputChange }) {
   const [formQuery, setFormQuery] = useState('');
   /**/
   const handleChange = e => {
     if (e.target.value === '') {
-      findImageId('2649311');
+      // findImageId('2649311');
       setFormQuery('');
+      inputChange(false, '2649311');
     } else {
-      findImageId('2840235');
+      // findImageId('2840235');
       setFormQuery(e.target.value);
+      inputChange(true, '2840235');
     }
   };
 
@@ -47,7 +49,7 @@ function Searchbar({ onSearch, findImageId }) {
 Searchbar.propTypes = {
   onSearch: PropTypes.func.isRequired,
   findImageId: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  // value: PropTypes.string.isRequired,
 };
 
 export default Searchbar;
