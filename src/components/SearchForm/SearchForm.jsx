@@ -22,7 +22,7 @@ const SearchFrom = ({ onSearch }) => {
     // Отдать данные внешнему компоненту
     onSearch(query);
 
-    resetForm();
+    setQuery(''); //resetForm();
   };
 
   // Сбрасывает поле после отправки
