@@ -26,6 +26,7 @@ const App = () => {
     } else {
       searchImages();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   useEffect(() => {
@@ -35,6 +36,7 @@ const App = () => {
     } else {
       searchImages();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   useEffect(() => {
@@ -47,6 +49,7 @@ const App = () => {
       setLargeImageURL('');
     }
     findImageId(startImageURL);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emptyInput]);
 
   const inputChange = (bool, id) => {
