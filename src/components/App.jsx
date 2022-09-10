@@ -129,11 +129,7 @@ const App = () => {
   if (status === 'idle') {
     return (
       <>
-        <Searchbar
-          onSearch={SearchForm}
-          findImageId={findImageId}
-          inputChange={inputChange}
-        />
+        <Searchbar onSearch={SearchForm} inputChange={inputChange} />
         <PreLoad src={startImageURL} />
       </>
     );
@@ -142,11 +138,7 @@ const App = () => {
   if (status === 'pending') {
     return (
       <>
-        <Searchbar
-          onSearch={SearchForm}
-          findImageId={findImageId}
-          inputChange={inputChange}
-        />
+        <Searchbar onSearch={SearchForm} inputChange={inputChange} />
         {page > 1 && (
           <ImageGallery
             images={images}
@@ -162,11 +154,7 @@ const App = () => {
   if (status === 'rejected') {
     return (
       <>
-        <Searchbar
-          onSearch={SearchForm}
-          findImageId={findImageId}
-          inputChange={inputChange}
-        />
+        <Searchbar onSearch={SearchForm} inputChange={inputChange} />
         <ErrorView textError={error} src={startImageURL} />
       </>
     );
