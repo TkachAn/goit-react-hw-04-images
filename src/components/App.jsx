@@ -14,30 +14,35 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [images, setImages] = useState([]);
   const [largeImageURL, setLargeImageURL] = useState('');
-  const [startImageURL, setStartImageURL] = useState('2649311');
+  const [startImageURL, setStartImageURL] = useState(''); //2649311
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [emptyInput, setEmptyInput] = useState(false);
   const [status, setStatus] = useState('idle');
-
   useEffect(() => {
-    if (page === 1) {
-      return;
-    } else {
-      searchImages();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
-
+    findImageId('2649311');
+  }, []);
   useEffect(() => {
     if (query === '') {
-      findImageId('2649311');
+      // findImageId('2649311');
       return;
+      // } else if (page === 1) {
+      //   return;
     } else {
       searchImages();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+  }, [query, page]);
+
+  // useEffect(() => {
+  //   if (query === '') {
+  //     findImageId('2649311');
+  //     return;
+  //   } else {
+  //     searchImages();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [query]);
 
   useEffect(() => {
     if (!emptyInput) {
@@ -49,10 +54,20 @@ const App = () => {
       setLargeImageURL('');
       findImageId('2649311');
     } else {
-      findImageId('2840235');
-    }
+      if (status === 'idle') {
+        findImageId('2840235');
+      }
+      if (status === 'rejected') {
+        findImageId('2840281');
+      }
+      if (status === 'rejected') {
+        findImageId('2681482');
+      }
+    } // findImageId('2681482'); //findImageId('2840235');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emptyInput]);
+  console.log('emptyInput', emptyInput);
+  console.log('startImageURL', startImageURL);
   // useEffect(() => {
   //   if (error) {
   //     findImageId(startImageURL);
@@ -61,9 +76,9 @@ const App = () => {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [startImageURL]);
 
-  const inputChange = (bool, id) => {
+  const inputChange = bool => {
     setEmptyInput(bool);
-    setStartImageURL(id);
+    //status
   };
   /**/
   const searchImages = async () => {
@@ -74,14 +89,13 @@ const App = () => {
       setImages(prev => [...prev, ...request]);
       setStatus('resolved');
       if (request.length === 0 || request === '') {
-        setStartImageURL('3082831');
-        // findImageId('3082831');
+        findImageId('2681482'); //findImageId('2840281');
         setStatus('rejected');
         setError(`No results were found for ${query}!`);
       }
     } catch (error) {
-      setStartImageURL('2840281');
       // findImageId('2840281');
+      findImageId('2681482');
       setStatus('rejected');
       setError('Something went wrong. Try again.');
     } finally {
