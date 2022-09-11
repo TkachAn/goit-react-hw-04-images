@@ -8,10 +8,10 @@ function Searchbar({ onSearch, inputChange }) {
   const handleChange = e => {
     if (e.target.value === '') {
       setFormQuery('');
-      inputChange(false, '2649311');
+      inputChange(false);
     } else {
       setFormQuery(e.target.value);
-      inputChange(true, '2840235');
+      inputChange(true);
     }
   };
 
