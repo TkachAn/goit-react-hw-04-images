@@ -58,23 +58,12 @@ const App = () => {
         findImageId('2840235');
       }
       if (status === 'rejected') {
-        findImageId('2840281');
+        findImageId('2681507'); //findImageId('2681488'); //findImageId('2840281'); //findImageId('2681482');
       }
-      if (status === 'rejected') {
-        findImageId('2681482');
-      }
-    } // findImageId('2681482'); //findImageId('2840235');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [emptyInput]);
+    }
+  }, [emptyInput, status]);
   console.log('emptyInput', emptyInput);
   console.log('startImageURL', startImageURL);
-  // useEffect(() => {
-  //   if (error) {
-  //     findImageId(startImageURL);
-  //   }
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [startImageURL]);
 
   const inputChange = bool => {
     setEmptyInput(bool);
@@ -89,13 +78,13 @@ const App = () => {
       setImages(prev => [...prev, ...request]);
       setStatus('resolved');
       if (request.length === 0 || request === '') {
-        findImageId('2681482'); //findImageId('2840281');
         setStatus('rejected');
+        // findImageId('2840281');
         setError(`No results were found for ${query}!`);
       }
     } catch (error) {
       // findImageId('2840281');
-      findImageId('2681482');
+      // findImageId('2681482');
       setStatus('rejected');
       setError('Something went wrong. Try again.');
     } finally {
