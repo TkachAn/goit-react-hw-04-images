@@ -14,8 +14,8 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [images, setImages] = useState([]);
   const [largeImageURL, setLargeImageURL] = useState('');
-  const [startImageURL, setStartImageURL] = useState(''); //2649311
-  const [error, setError] = useState(null);
+  const [startImageURL, setStartImageURL] = useState('');
+  const [error, setError] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [emptyInput, setEmptyInput] = useState(false);
   const [status, setStatus] = useState('idle');
@@ -24,50 +24,37 @@ const App = () => {
   }, []);
   useEffect(() => {
     if (query === '') {
-      // findImageId('2649311');
       return;
-      // } else if (page === 1) {
-      //   return;
     } else {
       searchImages();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, page]);
 
-  // useEffect(() => {
-  //   if (query === '') {
-  //     findImageId('2649311');
-  //     return;
-  //   } else {
-  //     searchImages();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [query]);
-
   useEffect(() => {
+    setShowModal(false);
+    setLargeImageURL('');
     if (!emptyInput) {
       setStatus('idle');
       setImages([]);
       setPage(1);
-      setError(null);
-      setShowModal(false);
-      setLargeImageURL('');
+      setError('');
       findImageId('2649311');
     } else {
       if (status === 'idle') {
         findImageId('2840235');
       }
       if (status === 'rejected') {
-        findImageId('2681507'); //findImageId('2681488'); //findImageId('2840281'); //findImageId('2681482');
+        setImages([]);
+        setPage(1);
+        // setError('');
+        findImageId('2681507');
       }
     }
   }, [emptyInput, status]);
-  console.log('emptyInput', emptyInput);
-  console.log('startImageURL', startImageURL);
 
   const inputChange = bool => {
     setEmptyInput(bool);
-    //status
   };
   /**/
   const searchImages = async () => {
@@ -79,12 +66,9 @@ const App = () => {
       setStatus('resolved');
       if (request.length === 0 || request === '') {
         setStatus('rejected');
-        // findImageId('2840281');
         setError(`No results were found for ${query}!`);
       }
     } catch (error) {
-      // findImageId('2840281');
-      // findImageId('2681482');
       setStatus('rejected');
       setError('Something went wrong. Try again.');
     } finally {
@@ -111,10 +95,6 @@ const App = () => {
     setError(null);
     setShowModal(false);
     setLargeImageURL('');
-    if (query === '') {
-      findImageId('2649311');
-      return;
-    }
     setQuery(query);
   };
   /**/
