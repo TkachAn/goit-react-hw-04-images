@@ -47,7 +47,6 @@ const App = () => {
       if (status === 'rejected') {
         setImages([]);
         setPage(1);
-        // setError('');
         findImageId('2681507');
       }
     }
