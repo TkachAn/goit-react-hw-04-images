@@ -7,9 +7,11 @@ function PreLoad({
   title = 'Please enter a value for search images!',
 }) {
   return (
-    <div className={css.tumb}>
+    <div className= {css.box} >
       <h2 className={css.text}>{title}</h2>
-      <img className={css.image} src={src} alt={alt} />
+      <div className={css.tumb}>
+        <img className={css.image} src={src} alt={alt} />
+      </div>
     </div>
   );
 }

@@ -1,5 +1,9 @@
-.tumb {
+.box {
   text-align: center;
+}
+
+.tumb {
+ 
 }
 
 .text {
@@ -9,4 +13,14 @@
 
 .image {
   margin: 0 auto;
+	 animation: 2s show ease;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

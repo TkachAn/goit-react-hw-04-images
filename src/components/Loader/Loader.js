@@ -6,8 +6,8 @@ function Loader() {
     <div className={css.div}>
       <div className={css.overlay}>
         <ThreeDots
-          height="100"
-          width="100"
+          height="200"
+          width="200"
           radius="9"
           color="#4fa94d"
           ariaLabel="three-dots-loading"
